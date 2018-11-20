@@ -36,6 +36,7 @@ class ClubTeamController extends AbstractController
 
             $club = $clubTeam->getClub()->getName();
             $team = $clubTeam->getTeam()->getName();
+            $team = ($team == "A") ? "" : $team;
             $name = $club . ' ' . $team;
             $clubTeam = $clubTeam->setName($name);
 
@@ -71,6 +72,8 @@ class ClubTeamController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $club = $clubTeam->getClub()->getName();
             $team = $clubTeam->getTeam()->getName();
+            $team = ($team == "A") ? "" : $team;
+
             $name = $club . ' ' . $team;
             $clubTeam = $clubTeam->setName($name);
 

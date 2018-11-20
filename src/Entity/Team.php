@@ -43,9 +43,21 @@ class Team
      */
     private $section;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SeasonCompetition", mappedBy="typeTeam")
+     */
+    private $seasonCompetitions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Competition", mappedBy="section")
+     */
+    private $competitions;
+
     public function __construct()
     {
         $this->clubTeams = new ArrayCollection();
+        $this->seasonCompetitions = new ArrayCollection();
+        $this->competitions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -117,5 +129,67 @@ class Team
         }
 
         return $section;
+    }
+
+    /**
+     * @return Collection|SeasonCompetition[]
+     */
+    public function getSeasonCompetitions(): Collection
+    {
+        return $this->seasonCompetitions;
+    }
+
+    public function addSeasonCompetition(SeasonCompetition $seasonCompetition): self
+    {
+        if (!$this->seasonCompetitions->contains($seasonCompetition)) {
+            $this->seasonCompetitions[] = $seasonCompetition;
+            $seasonCompetition->setTypeTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeasonCompetition(SeasonCompetition $seasonCompetition): self
+    {
+        if ($this->seasonCompetitions->contains($seasonCompetition)) {
+            $this->seasonCompetitions->removeElement($seasonCompetition);
+            // set the owning side to null (unless already changed)
+            if ($seasonCompetition->getTypeTeam() === $this) {
+                $seasonCompetition->setTypeTeam(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Competition[]
+     */
+    public function getCompetitions(): Collection
+    {
+        return $this->competitions;
+    }
+
+    public function addCompetition(Competition $competition): self
+    {
+        if (!$this->competitions->contains($competition)) {
+            $this->competitions[] = $competition;
+            $competition->setSection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetition(Competition $competition): self
+    {
+        if ($this->competitions->contains($competition)) {
+            $this->competitions->removeElement($competition);
+            // set the owning side to null (unless already changed)
+            if ($competition->getSection() === $this) {
+                $competition->setSection(null);
+            }
+        }
+
+        return $this;
     }
 }

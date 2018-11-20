@@ -29,15 +29,31 @@ class Competition
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\SeasonCompetition", mappedBy="name")
+     * @ORM\Column(type="integer")
      */
-    private $image;
+    private $format;
 
-    public function __construct()
-    {
-        $this->image = new ArrayCollection();
-    }
-    
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="competitions")
+     */
+    private $section;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $typeClub;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $division;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Confederation", inversedBy="competitions")
+     */
+    private $confederation;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,33 +71,62 @@ class Competition
         return $this;
     }
 
-    /**
-     * @return Collection|SeasonCompetition[]
-     */
-    public function getImage(): Collection
+    public function getFormat(): ?int
     {
-        return $this->image;
+        return $this->format;
     }
 
-    public function addImage(SeasonCompetition $image): self
+    public function setFormat(int $format): self
     {
-        if (!$this->image->contains($image)) {
-            $this->image[] = $image;
-            $image->setName($this);
-        }
+        $this->format = $format;
 
         return $this;
     }
 
-    public function removeImage(SeasonCompetition $image): self
+    public function getSection(): ?Team
     {
-        if ($this->image->contains($image)) {
-            $this->image->removeElement($image);
-            // set the owning side to null (unless already changed)
-            if ($image->getName() === $this) {
-                $image->setName(null);
-            }
-        }
+        return $this->section;
+    }
+
+    public function setSection(?Team $section): self
+    {
+        $this->section = $section;
+
+        return $this;
+    }
+
+    public function getTypeClub(): ?bool
+    {
+        return $this->typeClub;
+    }
+
+    public function setTypeClub(bool $typeClub): self
+    {
+        $this->typeClub = $typeClub;
+
+        return $this;
+    }
+
+    public function getDivision(): ?int
+    {
+        return $this->division;
+    }
+
+    public function setDivision(int $division): self
+    {
+        $this->division = $division;
+
+        return $this;
+    }
+
+    public function getConfederation(): ?Confederation
+    {
+        return $this->confederation;
+    }
+
+    public function setConfederation(?Confederation $confederation): self
+    {
+        $this->confederation = $confederation;
 
         return $this;
     }

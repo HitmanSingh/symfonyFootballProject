@@ -67,10 +67,16 @@ class ClubTeam
      */
     private $games;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Competition", mappedBy="teams")
+     */
+    private $competitions;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->games = new ArrayCollection();
+        $this->competitions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -204,6 +210,34 @@ class ClubTeam
             if ($game->getTeamHome() === $this) {
                 $game->setTeamHome(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Competition[]
+     */
+    public function getCompetitions(): Collection
+    {
+        return $this->competitions;
+    }
+
+    public function addCompetition(Competition $competition): self
+    {
+        if (!$this->competitions->contains($competition)) {
+            $this->competitions[] = $competition;
+            $competition->addTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetition(Competition $competition): self
+    {
+        if ($this->competitions->contains($competition)) {
+            $this->competitions->removeElement($competition);
+            $competition->removeTeam($this);
         }
 
         return $this;

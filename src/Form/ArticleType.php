@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,7 +33,7 @@ class ArticleType extends AbstractType
             ->add('resume', TextType::class, array(
                 'attr' => array('class' => 'form-control')
             ))
-            ->add('content', TextType::class, array(
+            ->add('content', TextareaType::class, array(
                 'attr' => array('class' => 'form-control')
             ))
             ->add('category', EntityType::class, [
@@ -67,9 +68,9 @@ class ArticleType extends AbstractType
             ))
             ->add('published', ChoiceType::class, array(
                 'choices' => array(
-                    'Publié' => 1,
-                    'Brouillon' => 2,
                     'Non publié'   => 0,
+                    'Publié' => 1,
+                    'Brouillon' => 2
                 ),
                 'attr' => array('class' => 'form-control')
 

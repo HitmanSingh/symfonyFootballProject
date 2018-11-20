@@ -47,7 +47,15 @@
             </tr>
             <tr>
                 <th>Type</th>
-                <td>{{ article.type }}</td>
+                <td>
+                    {% if article.type == 0 %}
+                        {{ 'nopublished'|trans }}
+                    {% elseif article.type == 1 %}
+                        {{ 'published'|trans }}
+                    {% elseif article.type == 1 %}
+                        {{ 'draft'|trans }}
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Source_article</th>
@@ -64,10 +72,6 @@
             <tr>
                 <th>Published</th>
                 <td>{{ article.published ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Archived</th>
-                <td>{{ article.archived ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Player</th>

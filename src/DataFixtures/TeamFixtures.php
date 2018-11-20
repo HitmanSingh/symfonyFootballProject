@@ -23,6 +23,24 @@ class TeamFixtures extends Fixture
 
         $manager->persist($team);
 
+        $team = (new Team())
+            ->setName('U19')
+            ->setSection(0)
+            ->setCreatedAt($date)
+            ->setUpdatedAt($date)
+        ;
+
+        $manager->persist($team);
+
+        $team = (new Team())
+            ->setName('A')
+            ->setSection(1)
+            ->setCreatedAt($date)
+            ->setUpdatedAt($date)
+        ;
+
+        $manager->persist($team);
+
         $manager->flush();
     }
 }

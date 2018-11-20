@@ -96,7 +96,6 @@ class Article
      */
     private $source_image;
 
-
     /**
      * @ORM\Column(type="string", length=200)
      */
