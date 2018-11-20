@@ -26,6 +26,11 @@ class ClubTeam
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $name;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $year_creation;
@@ -57,9 +62,21 @@ class ClubTeam
      */
     private $stadium;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Game", mappedBy="team_home")
+     */
+    private $games;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Competition", mappedBy="teams")
+     */
+    private $competitions;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->games = new ArrayCollection();
+        $this->competitions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,6 +168,77 @@ class ClubTeam
     public function setStadium(?Stadium $stadium): self
     {
         $this->stadium = $stadium;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Game[]
+     */
+    public function getGames(): Collection
+    {
+        return $this->games;
+    }
+
+    public function addGame(Game $game): self
+    {
+        if (!$this->games->contains($game)) {
+            $this->games[] = $game;
+            $game->setTeamHome($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGame(Game $game): self
+    {
+        if ($this->games->contains($game)) {
+            $this->games->removeElement($game);
+            // set the owning side to null (unless already changed)
+            if ($game->getTeamHome() === $this) {
+                $game->setTeamHome(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Competition[]
+     */
+    public function getCompetitions(): Collection
+    {
+        return $this->competitions;
+    }
+
+    public function addCompetition(Competition $competition): self
+    {
+        if (!$this->competitions->contains($competition)) {
+            $this->competitions[] = $competition;
+            $competition->addTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetition(Competition $competition): self
+    {
+        if ($this->competitions->contains($competition)) {
+            $this->competitions->removeElement($competition);
+            $competition->removeTeam($this);
+        }
 
         return $this;
     }

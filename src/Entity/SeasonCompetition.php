@@ -19,7 +19,7 @@ class SeasonCompetition
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Competition", inversedBy="image")
      */
-    private $name;
+    private $competition;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -29,12 +29,12 @@ class SeasonCompetition
     /**
      * @ORM\Column(type="integer")
      */
-    private $type;
+    private $typeCompetition;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $number_participate;
+    private $numberParticipate;
 
     /**
      * @ORM\Column(type="integer")
@@ -47,9 +47,10 @@ class SeasonCompetition
     private $season;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="seasonCompetitions")
      */
-    private $section;
+    private $typeTeam;
+
 
     public function getId(): ?int
     {
@@ -58,12 +59,12 @@ class SeasonCompetition
 
     public function getName(): ?Competition
     {
-        return $this->name;
+        return $this->competition;
     }
 
-    public function setName(?Competition $name): self
+    public function setName(?Competition $competition): self
     {
-        $this->name = $name;
+        $this->competition = $competition;
 
         return $this;
     }
@@ -80,26 +81,26 @@ class SeasonCompetition
         return $this;
     }
 
-    public function getType(): ?int
+    public function getTypeCompetition(): ?int
     {
-        return $this->type;
+        return $this->typeCompetition;
     }
 
-    public function setType(int $type): self
+    public function setTypeCompetition(int $typeCompetition): self
     {
-        $this->type = $type;
+        $this->typeCompetition = $typeCompetition;
 
         return $this;
     }
 
     public function getNumberParticipate(): ?int
     {
-        return $this->number_participate;
+        return $this->numberParticipate;
     }
 
-    public function setNumberParticipate(int $number_participate): self
+    public function setNumberParticipate(int $numberParticipate): self
     {
-        $this->number_participate = $number_participate;
+        $this->numberParticipate = $numberParticipate;
 
         return $this;
     }
@@ -128,14 +129,14 @@ class SeasonCompetition
         return $this;
     }
 
-    public function getSection(): ?int
+    public function getTypeTeam(): ?Team
     {
-        return $this->section;
+        return $this->typeTeam;
     }
 
-    public function setSection(int $section): self
+    public function setTypeTeam(?Team $typeTeam): self
     {
-        $this->section = $section;
+        $this->typeTeam = $typeTeam;
 
         return $this;
     }

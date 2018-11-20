@@ -15,8 +15,26 @@ class TeamFixtures extends Fixture
 
         $date = $faker->dateTime();
         $team = (new Team())
-            ->setName('Equipe A')
+            ->setName('A')
             ->setSection(0)
+            ->setCreatedAt($date)
+            ->setUpdatedAt($date)
+        ;
+
+        $manager->persist($team);
+
+        $team = (new Team())
+            ->setName('U19')
+            ->setSection(0)
+            ->setCreatedAt($date)
+            ->setUpdatedAt($date)
+        ;
+
+        $manager->persist($team);
+
+        $team = (new Team())
+            ->setName('A')
+            ->setSection(1)
             ->setCreatedAt($date)
             ->setUpdatedAt($date)
         ;

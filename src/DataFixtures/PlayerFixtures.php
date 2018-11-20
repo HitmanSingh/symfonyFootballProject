@@ -15,9 +15,9 @@ class PlayerFixtures extends Fixture
             array(
                 "firstname" => "Clément",
                 "lastname" => "Turpin",
-                "surname" => "FDP",
+                "surname" => "turp",
                 "image" => "turpin.jpg",
-                "cityBirth" => "FDPville",
+                "cityBirth" => "ville",
                 "dateBirth" => new \DateTime("1978-12-20"),
                 "foot" => 0,
                 "nationality" => "FR",
